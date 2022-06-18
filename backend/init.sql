@@ -31,9 +31,9 @@ CREATE TABLE store.`feedback` (
 );
 
 CREATE TABLE store.`card` (
-	`number` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`ccv` INT NOT NULL,
-	`user` INT NOT NULL,
+	`number` VARCHAR(255) NOT NULL PRIMARY KEY,
+	`ccv` VARCHAR(3) NOT NULL,
+	`user` INT NOT NULL UNIQUE,
 	`validity` DATE NOT NULL,
 	`type` VARCHAR(255) NOT NULL,
 	FOREIGN KEY (`user`) REFERENCES store.`user`(`id`)
