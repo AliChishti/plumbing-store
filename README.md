@@ -20,3 +20,18 @@ finally, start the server
 ```ssh
 npm start
 ```
+by default the server will run on `port 8000`
+
+## Run the client
+To run client, navigate into frontend directory
+```ssh
+cd frontend
+```
+and then install all the dependencies
+```ssh
+npm install
+```
+finally, start the client
+```ssh
+npm start
+```
