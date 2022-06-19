@@ -7,11 +7,14 @@ const Product = require("../models/product");
 
 const productController = require("../controllers/product");
 
-router.get("/", productController.get);
+const auth = require("../middleware/auth");
+
+router.get("/", auth, productController.get);
 
 router.post(
   "/",
   [
+    auth,
     body("name")
       .trim()
       .custom(async (name) => {
@@ -24,11 +27,12 @@ router.post(
   productController.create
 );
 
-router.delete("/:id", productController.delete);
+router.delete("/:id", auth, productController.delete);
 
 router.patch(
   "/:id",
   [
+    auth,
     body("name")
       .trim()
       .custom(async (name) => {

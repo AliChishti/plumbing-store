@@ -7,9 +7,12 @@ const Category = require("../models/category");
 
 const categoryController = require("../controllers/category");
 
+const auth = require("../middleware/auth");
+
 router.post(
   "/",
   [
+    auth,
     body("name")
       .trim()
       .custom(async (name) => {
@@ -22,8 +25,8 @@ router.post(
   categoryController.create
 );
 
-router.delete("/:id", categoryController.delete);
+router.delete("/:id", auth, categoryController.delete);
 
-router.patch("/:id", categoryController.update);
+router.patch("/:id", auth, categoryController.update);
 
 module.exports = router;

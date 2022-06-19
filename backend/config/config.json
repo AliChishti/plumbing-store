@@ -2,5 +2,6 @@
     "host": "localhost",
     "user": "root",
     "database": "store",
-    "password": "root"
+    "password": "root",
+    "secret": "secret"
 }

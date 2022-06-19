@@ -5,11 +5,14 @@ const router = express.Router();
 
 const cardController = require("../controllers/card");
 
-router.get("/:id", cardController.findByUser);
+const auth = require("../middleware/auth");
+
+router.get("/:id", auth, cardController.findByUser);
 
 router.post(
   "/",
   [
+    auth, 
     body("validity").custom(async (date) => {
       const enteredDate = new Date(date);
       const now = new Date();
@@ -25,6 +28,7 @@ router.post(
 router.patch(
   "/",
   [
+    auth, 
     body("validity").custom(async (date) => {
       const enteredDate = new Date(date);
       const now = new Date();

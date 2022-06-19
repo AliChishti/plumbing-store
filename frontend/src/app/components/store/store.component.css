@@ -1,0 +1,38 @@
+.store {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 2rem;
+}
+
+h1 {
+  color: #d25e63;
+}
+
+.products__container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 100rem;
+  justify-content: center;
+}
+
+.product {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 10px;
+  gap: 1rem;
+}
+
+.product:hover {
+  transition: all 0.5s;
+  background-color: #f8c7c7;
+}
+
+.product__image-container {
+  height: 10rem;
+  width: 10rem;
+}
+.product__image {
+  height: 10rem;
+}

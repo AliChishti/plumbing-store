@@ -1,0 +1,24 @@
+<app-navigation></app-navigation>
+<app-create-product></app-create-product>
+<div class="store">
+    <h1>Products</h1>
+    <div class="products__container">
+        <div *ngFor="let product of products$ | async" class="product">
+            <div class="product__image-container">
+                <div *ngIf="product.image; else defaultImage">
+                    <img class="product__image" src="assets/images/uploads/{{product.image}}" alt="">
+                </div>
+                <ng-template #defaultImage>
+                    <div>
+                        <img class="product__image" src="assets/images/uploads/default.png" alt="">
+                    </div>
+                </ng-template>
+            </div>
+
+            <div class="product__detail-container">
+                <h2>{{product.name}}</h2>
+                <p>{{product.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>

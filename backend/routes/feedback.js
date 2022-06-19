@@ -5,21 +5,25 @@ const router = express.Router();
 
 const feedbackController = require("../controllers/feedback");
 
-router.get("/:id", feedbackController.findByProduct);
+const auth = require("../middleware/auth");
+
+router.get("/:id", auth, feedbackController.findByProduct);
 
 router.post(
   "/:id",
   [
+    auth,
     body("rating").isInt({min: 1, max: 5}),
   ],
   feedbackController.create
 );
 
-router.delete("/:id", feedbackController.delete);
+router.delete("/:id", auth, feedbackController.delete);
 
 router.patch(
   "/:id",
   [
+    auth,
     body("rating").isInt({min: 1, max: 5})
   ],
   feedbackController.update

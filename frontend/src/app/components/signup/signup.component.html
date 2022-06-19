@@ -1,0 +1,31 @@
+<div class="message" [innerHTML]="msgStr" [hidden]="!msgStr"></div>
+<div class="error" [innerHTML]="errorStr" [hidden]="!errorStr"></div>
+
+<div class="container-border">
+    <div>
+        <img src="assets/images/static/store.png" alt="">
+    </div>
+    <div class="form__container">
+        <h1>Signup</h1>
+        <form method="POST" [formGroup]="signupForm" (ngSubmit)="signUp()" novalidate>
+            <div class="form__field">
+                <label for="username-email">Username</label>
+                <input type="text" formControlName="username" id="username" placeholder="Username">
+            </div>
+            <div class="form__field">
+                <label for="email">Email</label>
+                <input type="email" formControlName="email" id="email" placeholder="Email">
+            </div>
+            <div class="form__field">
+                <label for="username-email">Password</label>
+                <input type="password" formControlName="password" id="password">
+            </div>
+            <div>
+                <button type="submit" [disabled]="!signupForm.valid">Signup</button>
+            </div>
+            <div>
+                <a href="/login">Already have an account? Log in</a>
+            </div>
+        </form>
+    </div>
+</div>
