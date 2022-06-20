@@ -9,6 +9,8 @@ const categoryController = require("../controllers/category");
 
 const auth = require("../middleware/auth");
 
+router.get("/", auth, categoryController.get);
+
 router.post(
   "/",
   [

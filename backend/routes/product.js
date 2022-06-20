@@ -1,6 +1,9 @@
 const express = require("express");
 const { body } = require("express-validator");
 
+const multer = require("multer");
+const upload = multer({ dest: "images/" });
+
 const router = express.Router();
 
 const Product = require("../models/product");
@@ -26,6 +29,8 @@ router.post(
   ],
   productController.create
 );
+
+router.post("/upload-image", auth, productController.uploadImage);
 
 router.delete("/:id", auth, productController.delete);
 

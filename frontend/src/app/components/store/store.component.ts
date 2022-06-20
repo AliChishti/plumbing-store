@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { Product } from 'src/app/models/Product';
 import { User } from 'src/app/models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store',
@@ -15,19 +16,43 @@ import { User } from 'src/app/models/User';
 })
 export class StoreComponent implements OnInit {
   products$!: Observable<Product[]>;
-  username!: Pick<User, 'username'>;
+  isAdmin$!: boolean;
+  openAddProductModal!: boolean;
+  isCategoryModalOpen$!: boolean;
+  isProductModalOpen$!: boolean;
 
   constructor(
     private productService: ProductService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.username = this.authService.username;
+    this.isAdmin$ = localStorage.getItem('user') === '"admin"';
+    this.isCategoryModalOpen$ = false;
     this.products$ = this.fetchAll();
   }
 
   fetchAll(): Observable<Product[]> {
     return this.productService.fetchAll();
+  }
+
+  delete(id: number){
+    this.productService.delete(id).subscribe();
+    window.location.reload();
+  }
+
+  openCategoryModal() {
+    this.isCategoryModalOpen$ = true;
+  }
+  closeCategoryModal() {
+    this.isCategoryModalOpen$ = false;
+  }
+
+  openProductModal() {
+    this.isProductModalOpen$ = true;
+  }
+  closeProductModal() {
+    this.isProductModalOpen$ = false;
   }
 }

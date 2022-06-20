@@ -13,6 +13,7 @@ import { CreateProductComponent } from './components/create-product/create-produ
 import { NavigationComponent } from './components/navigation/navigation.component';
 
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     StoreComponent,
     CreateProductComponent,
     NavigationComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,

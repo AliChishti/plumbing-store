@@ -41,4 +41,34 @@ export class ProductService {
         )
       );
   }
+
+  delete(id: number) {
+    return this.http
+      .delete(this.url + id)
+      .pipe(
+        catchError(
+          this.errorHandlerService.handleError('deleteProduct', undefined)
+        )
+      );
+  }
+
+  create(product: Omit<Product, 'id'>): Observable<Product> {
+    return this.http
+      .post<Product>(`${this.url}`, product, this.httpOptions)
+      .pipe(
+        first(),
+        catchError(this.errorHandlerService.handleError<Product>('signup'))
+      );
+  }
+
+  uploadImage(image: any) {
+    const formData: FormData = new FormData();
+    formData.append('image', image, image.name);
+    console.log(formData.get("image"));
+    return this.http
+      .post(this.url + 'upload-image', formData)
+      .pipe(
+        catchError(this.errorHandlerService.handleError('uploadImage', []))
+      );
+  }
 }

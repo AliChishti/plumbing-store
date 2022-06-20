@@ -10,7 +10,7 @@ module.exports = class Product {
   }
 
   static get() {
-    return db.execute("SELECT * FROM product");
+    return db.execute("SELECT p.id , p.name , p.description , p.image , p.price , c.name as category FROM product p INNER JOIN category c on c.id = p.category;");
   }
 
   static find(id) {

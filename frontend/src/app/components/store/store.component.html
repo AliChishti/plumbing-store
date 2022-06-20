@@ -1,23 +1,45 @@
 <app-navigation></app-navigation>
-<app-create-product></app-create-product>
+<app-create-product *ngIf="isProductModalOpen$"></app-create-product>
+<app-category *ngIf="isCategoryModalOpen$"></app-category>
 <div class="store">
-    <h1>Products</h1>
+    <div class="store__header">
+        <h1>Products</h1>
+        <div class="store__buttons">
+            <div *ngIf="isAdmin$">
+                <button class="product__add-btn" (click)="openProductModal()">Add new Item</button>
+            </div>
+            <div *ngIf="isAdmin$">
+                <button class="product__add-btn" (click)="openCategoryModal()">Add new Category</button>
+            </div>
+        </div>
+    </div>
+
     <div class="products__container">
         <div *ngFor="let product of products$ | async" class="product">
             <div class="product__image-container">
                 <div *ngIf="product.image; else defaultImage">
-                    <img class="product__image" src="assets/images/uploads/{{product.image}}" alt="">
+                    <img class="product__image" src="http://localhost:8000/images/{{product.image}}" alt="">
                 </div>
                 <ng-template #defaultImage>
-                    <div>
-                        <img class="product__image" src="assets/images/uploads/default.png" alt="">
+                    <div class="product__image-container">
+                        <img class="product__image" src="assets/images/default.png" alt="">
                     </div>
                 </ng-template>
             </div>
 
             <div class="product__detail-container">
                 <h2>{{product.name}}</h2>
+                <h2 style="color: lightcoral;">${{product.price}}</h2>
                 <p>{{product.description}}</p>
+                <p class="product__category">{{product.category}}</p>
+            </div>
+
+            <div class="product__interact">
+                <button *ngIf="!isAdmin$" class="product__add-btn">Add to Cart</button>
+                <button class="product__delete-btn" (click)="delete(product.id)">Delete Item</button>
+
+                <!-- <p class="product__feedback-title">View Reviews <img class="icon"
+                        src="assets/images/static/arrow-down.png" alt=""></p> -->
             </div>
         </div>
     </div>

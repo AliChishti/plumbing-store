@@ -1,6 +1,9 @@
 const { validationResult } = require("express-validator");
 
 const Product = require("../models/product");
+const formidable = require("formidable");
+
+const fs = require("fs");
 
 exports.get = async (req, res, next) => {
   try {
@@ -40,7 +43,6 @@ exports.create = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   const id = req.params.id;
-
   try {
     await Product.delete(id);
 
@@ -81,4 +83,14 @@ exports.update = async (req, res, next) => {
     }
     next(error);
   }
+};
+
+exports.uploadImage = async (req, res, next) => {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    var oldpath = files.image.filepath;
+    var newpath = "public/images/" + files.image.originalFilename;
+    fs.renameSync(oldpath, newpath);
+    res.status(201).json({ message: "Image uploaded successfully!" });
+  });
 };

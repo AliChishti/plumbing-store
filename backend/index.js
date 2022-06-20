@@ -14,6 +14,7 @@ app = express();
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'))
 
 const corsOptions = {
   origin: "http://localhost:4200",

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { first, catchError, tap } from 'rxjs/operators';
@@ -7,7 +8,6 @@ import { first, catchError, tap } from 'rxjs/operators';
 import { ErrorHandlerService } from './error-handler.service';
 
 import { User } from '../models/User';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,7 @@ export class AuthService {
     private errorHandlerService: ErrorHandlerService,
     private router: Router
   ) {
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem('token')) {
       this.isUserLoggedIn$.next(true);
     }
   }
@@ -61,6 +61,7 @@ export class AuthService {
         tap((tokenObject: any) => {
           this.username = tokenObject.username;
           localStorage.setItem('token', tokenObject.token);
+          localStorage.setItem('user', JSON.stringify(this.username));
           this.isUserLoggedIn$.next(true);
           this.router.navigate(['store']);
         }),
