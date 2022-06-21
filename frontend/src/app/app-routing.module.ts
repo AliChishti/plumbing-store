@@ -6,9 +6,12 @@ import { AuthGuard } from "./services/auth-guard.service";
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { StoreComponent } from './components/store/store.component';
+import { CartComponent } from './components/cart/cart.component';
+
 
 const routes: Routes = [
   { path: 'store', component: StoreComponent, canActivate: [AuthGuard]},
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: '**', redirectTo: 'store' },

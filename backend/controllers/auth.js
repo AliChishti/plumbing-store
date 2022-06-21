@@ -3,6 +3,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
+const Cart = require("../models/cart");
+
 const config = require("../config/config.json");
 
 exports.signup = async (req, res, next) => {
@@ -25,8 +27,9 @@ exports.signup = async (req, res, next) => {
       password: hashPassword,
     };
 
-    await User.create(userData);
-
+    const user = await User.create(userData);
+    await Cart.create({user: user[0].insertId, items: null});
+  
     res.status(201).json({ message: "User signed up successfully!" });
   } catch (error) {
     if (!error.statusCode) {

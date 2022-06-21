@@ -14,6 +14,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { CategoryComponent } from './components/category/category.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CategoryComponent } from './components/category/category.component';
     CreateProductComponent,
     NavigationComponent,
     CategoryComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

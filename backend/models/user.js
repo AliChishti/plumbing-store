@@ -15,7 +15,7 @@ module.exports = class User {
   }
 
   static create(user) {
-    return db.execute("INSERT INTO user (username, email, password) VALUES(?, ?, ?)", [
+    return db.execute("INSERT INTO user (username, email, password) VALUES(?, ?, ?);", [
       user.username,
       user.email,
       user.password,

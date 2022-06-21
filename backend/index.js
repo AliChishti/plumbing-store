@@ -7,6 +7,8 @@ const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
 const feedbackRoutes = require("./routes/feedback");
 const cardRoutes = require("./routes/card");
+const cartRoutes = require("./routes/cart");
+
 
 require("dotenv").config();
 
@@ -27,6 +29,8 @@ app.use("/category", categoryRoutes);
 app.use("/product", productRoutes);
 app.use("/feedback", feedbackRoutes);
 app.use("/card", cardRoutes);
+app.use("/cart", cartRoutes);
+
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to plumbing store" });

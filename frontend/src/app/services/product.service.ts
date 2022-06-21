@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
+
 export class ProductService {
   private url = 'http://localhost:8000/product/';
 

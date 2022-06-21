@@ -18,6 +18,7 @@ CREATE TABLE store.`product` (
 	`price` INT NOT NULL,
 	`category` INT NOT NULL,
 	FOREIGN KEY (`category`) REFERENCES store.`category`(`id`)
+	ON DELETE CASCADE
 );
 
 CREATE TABLE store.`feedback` (
@@ -28,6 +29,7 @@ CREATE TABLE store.`feedback` (
 	`comment` VARCHAR(255),
 	FOREIGN KEY (`user`) REFERENCES store.`user`(`id`),
 	FOREIGN KEY (`product`) REFERENCES store.`product`(`id`)
+	ON DELETE CASCADE
 );
 
 CREATE TABLE store.`card` (
@@ -37,6 +39,7 @@ CREATE TABLE store.`card` (
 	`validity` DATE NOT NULL,
 	`type` VARCHAR(255) NOT NULL,
 	FOREIGN KEY (`user`) REFERENCES store.`user`(`id`)
+	ON DELETE CASCADE
 );
 
 CREATE TABLE store.`order` (
@@ -46,4 +49,13 @@ CREATE TABLE store.`order` (
 	`status` VARCHAR(255) NOT NULL,
 	`price` INT NOT NULL,
 	FOREIGN KEY (`user`) REFERENCES store.`user`(`id`)
+	ON DELETE CASCADE
+);
+
+CREATE TABLE store.`cart` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`user` INT NOT NULL UNIQUE,
+	`items` VARCHAR(16000),
+	FOREIGN KEY (`user`) REFERENCES store.`user`(`id`)
+	ON DELETE CASCADE
 );

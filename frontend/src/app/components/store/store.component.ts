@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Product } from 'src/app/models/Product';
 import { User } from 'src/app/models/User';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-store',
@@ -23,6 +24,7 @@ export class StoreComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -54,5 +56,9 @@ export class StoreComponent implements OnInit {
   }
   closeProductModal() {
     this.isProductModalOpen$ = false;
+  }
+
+  addToCart(product:number){
+    this.cartService.update(product).subscribe();
   }
 }

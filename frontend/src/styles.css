@@ -55,3 +55,8 @@ body {
 select {
     height: 2rem;
 }
+
+.btn--lg{
+    margin-block: 2rem;
+    font-size: 1.2rem;
+}
