@@ -1,0 +1,105 @@
+.checkout {
+  margin: 2rem;
+}
+
+.checkout__container {
+  display: flex;
+  gap: 10rem;
+}
+.checkout__bill-container, .checkout__card-container {
+  display: flex;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  flex-direction: column;
+  width: 40rem;
+  padding: 1rem 1.5rem;
+}
+
+.checkout__items {
+  display: flex;
+}
+.checkout__item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.checkout__item-name {
+  width: 40%;
+}
+.checkout__item-quantity {
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+.checkout__item-price {
+  text-align: right;
+  flex: 1;
+}
+
+.checkout__total {
+  width: 100%;
+  text-align: right;
+}
+.checkout__total-price {
+    display: flex;
+    gap: 5rem;
+    justify-content: flex-end;
+}
+.checkout__total-price--number {
+    width: 10rem;
+}
+.checkout__total-price--number-big {
+    color: #d25e63;
+}
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+}
+
+.form__container {
+    flex: 1;
+    max-width: 50%;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+}
+
+input {
+    outline: none;
+    padding: 0.5rem 0.25rem;
+}
+
+input:focus, input:hover {
+    outline: none;
+    border: 2px solid #d25e63;
+}
+
+button{
+    background-color: #d25e63;
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    width: 10rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #e26a6d;
+}
+
+button:disabled, button[disabled] {
+    background-color: #999;
+}

@@ -47,7 +47,7 @@ CREATE TABLE store.`order` (
 	`user` INT NOT NULL,
 	`detail` VARCHAR(16000) NOT NULL,
 	`status` VARCHAR(255) NOT NULL,
-	`price` INT NOT NULL,
+	`price` FLOAT NOT NULL,
 	FOREIGN KEY (`user`) REFERENCES store.`user`(`id`)
 	ON DELETE CASCADE
 );

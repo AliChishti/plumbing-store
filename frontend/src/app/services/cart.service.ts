@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { first, catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { first, catchError, } from 'rxjs/operators';
 
 import { ErrorHandlerService } from './error-handler.service';
 
-import { User } from '../models/User';
-import { Product } from '../models/Product';
 import { Cart } from '../models/Cart';
 
 import { Router } from '@angular/router';
@@ -67,12 +65,12 @@ export class CartService {
       );
   }
 
-  removeItem(product: number) {
+  removeItem(product: number):Observable<Cart> {
     return this.http
-      .patch(`${this.url}remove`, { product: product }, this.httpOptions)
+      .patch<Cart>(`${this.url}remove`, { product: product }, this.httpOptions)
       .pipe(
         first(),
-        catchError(this.errorHandlerService.handleError('updateCart'))
+        catchError(this.errorHandlerService.handleError<Cart>('updateCart'))
       );
   }
 }

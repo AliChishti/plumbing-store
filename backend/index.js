@@ -8,7 +8,7 @@ const productRoutes = require("./routes/product");
 const feedbackRoutes = require("./routes/feedback");
 const cardRoutes = require("./routes/card");
 const cartRoutes = require("./routes/cart");
-
+const orderRoutes = require("./routes/order");
 
 require("dotenv").config();
 
@@ -30,6 +30,7 @@ app.use("/product", productRoutes);
 app.use("/feedback", feedbackRoutes);
 app.use("/card", cardRoutes);
 app.use("/cart", cartRoutes);
+app.use("/order", orderRoutes);
 
 
 app.get("/", (req, res) => {

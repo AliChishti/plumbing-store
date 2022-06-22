@@ -10,11 +10,11 @@ module.exports = class Card {
   }
 
   static find(number) {
-    return db.execute("SELECT * FROM feedback WHERE number = ?", [number]);
+    return db.execute("SELECT * FROM card WHERE number = ?", [number]);
   }
 
   static findByUser(user) {
-    return db.execute("SELECT * FROM feedback WHERE user = ?", [user]);
+    return db.execute("SELECT * FROM card WHERE user = ?", [user]);
   }
 
   static create(card) {

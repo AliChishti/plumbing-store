@@ -1,0 +1,68 @@
+<app-navigation></app-navigation>
+<div class="checkout" *ngIf="cart$ | async as cart">
+    <div class="checkout__header">
+        <h1>Checkout</h1>
+    </div>
+    <div class="checkout__container">
+        <div class="checkout__bill-container" *ngIf="card$">
+            <div *ngFor="let item of cart.items" class="checkout__items">
+                <div *ngIf="item.id == product$ || !product$" class="checkout__item">
+                    <h2 class="checkout__item-name">{{item.name}}</h2>
+                    <div class="checkout__item-quantity">
+                        <b>Quanity: </b>
+                        <p>{{item.quantity}}</p>
+                    </div>
+                    <h1 class="checkout__item-price">${{item.price * item.quantity}}</h1>
+                </div>
+            </div>
+            <div class="checkout__total">
+                <hr>
+                <div class="checkout__total-price">
+                    <h1><b>Total</b></h1>
+                    <h1 class="checkout__total-price--number"><b>${{total$}}</b></h1>
+                </div>
+                <div class="checkout__total-price">
+                    <h1><b>Tax</b></h1>
+                    <h1 class="checkout__total-price--number"><b>${{tax$}}</b></h1>
+                </div>
+                <div class="checkout__total-price">
+                    <h1><b>Payable</b></h1>
+                    <h1 class="checkout__total-price--number checkout__total-price--number-big "><b>${{payable$}}</b>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="checkout__card-container">
+            <form method="POST">
+                <form method="POST" [formGroup]="cardForm" (ngSubmit)="payAmount()" novalidate>
+                    <div class="form__field">
+                        <label for="number">Card Number</label>
+                        <input type="text" formControlName="number" id="number">
+                    </div>
+                    <div class="form__field">
+                        <label for="CCV">CCV</label>
+                        <input type="ccv" formControlName="ccv" id="ccv">
+                    </div>
+                    <div class="form__field">
+                        <label for="validity">Expiry</label>
+                        <input type="date" formControlName="validity" id="validity">
+                    </div>
+                    <div class="form__field">
+                        <label for="type">Card Type</label>
+                        <select name="type" id="type" formControlName="type">
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" [disabled]="!cardForm.valid">Pay Amount</button>
+                    </div>
+                    <div>
+                        <button [disabled]="!cardForm.valid" (click) = "saveCard()">Save Card Info</button>
+                    </div>
+                </form>
+            </form>
+        </div>
+    </div>
+</div>

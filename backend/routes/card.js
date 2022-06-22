@@ -7,7 +7,7 @@ const cardController = require("../controllers/card");
 
 const auth = require("../middleware/auth");
 
-router.get("/:id", auth, cardController.findByUser);
+router.get("/", auth, cardController.findByUser);
 
 router.post(
   "/",

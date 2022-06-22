@@ -69,7 +69,8 @@ exports.removeItem = async (req, res, next) => {
   const cart = await Cart.findByUser(req.userId);
   let cartItems = JSON.parse(cart[0][0].items);
   cartItems = cartItems.filter((item) => item.id !== product);
-  await Cart.update(req.userId, { items: JSON.stringify(cartItems) });
+  const updatedCart = await Cart.update(req.userId, { items: JSON.stringify(cartItems) });
+  res.json(updatedCart)
 };
 
 exports.update = async (req, res, next) => {

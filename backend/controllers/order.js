@@ -1,11 +1,13 @@
+
 const { validationResult } = require("express-validator");
 
-const Card = require("../models/card");
+const Order = require("../models/order");
+
 
 exports.findByUser = async (req, res, next) => {
   try {
-    const cards = await Card.findByUser(req.userId);
-    res.json(cards[0][0]);
+    const orders = await Order.findByUser(req.userId);
+    res.json(orders[0]);
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
@@ -14,22 +16,34 @@ exports.findByUser = async (req, res, next) => {
   }
 };
 
+exports.find = async (req, res, next) => {
+    try {
+      const orders = await Order.findByUser(req.params.id);
+      res.json(orders[0][0]);
+    } catch (error) {
+      if (!error.statusCode) {
+        error.statusCode = 500;
+      }
+      next(error);
+    }
+  };
+  
+
 exports.create = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.json({ error: errors.errors[0].msg });
   }
-  console.log(req.body);
-  const number = req.body.number;
-  const ccv = req.body.ccv;
-  const validity = req.body.validity;
-  const type = req.body.type;
+
   const user = req.userId;
+  const detail = req.body.detail;
+  const price = req.body.price;
+  const status = "CONFIRMED";
 
   try {
-    await Card.create({ number, user, ccv, validity, type });
-    res.status(201).json({ message: "Card added successfully!" });
+    await Order.create({ user, detail, status, price });
+    res.status(201).json({ message: "Order created successfully!" });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
@@ -45,16 +59,13 @@ exports.update = async (req, res, next) => {
     return res.json({ error: errors.errors[0].msg });
   }
 
+  const id = req.params.id;
+  const status = req.body.status;
+
   try {
-    const number = req.body.number;
-    const ccv = req.body.ccv;
-    const validity = req.body.validity;
-    const type = req.body.type;
-    const user = req.body.user;
+    await Order.update(id, { status });
 
-    await Card.update(user, { number, ccv, validity, type });
-
-    res.status(200).json({ message: "Card updated successfully!" });
+    res.status(200).json({ message: "Order updated successfully!" });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
