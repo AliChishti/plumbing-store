@@ -63,10 +63,10 @@ export class CheckoutComponent implements OnInit {
 
   createFormGroup(): FormGroup {
     return new FormGroup({
-      validity: new FormControl(this.card$.validity, [Validators.required]),
-      ccv: new FormControl(this.card$.ccv, [Validators.required]),
-      type: new FormControl(this.card$.type, [Validators.required]),
-      number: new FormControl(this.card$.number, [Validators.required]),
+      validity: new FormControl(this.card$?.validity ?? '', [Validators.required]),
+      ccv: new FormControl(this.card$?.ccv ?? '', [Validators.required]),
+      type: new FormControl(this.card$?.type ?? '', [Validators.required]),
+      number: new FormControl(this.card$?.number ?? '', [Validators.required]),
     });
   }
 

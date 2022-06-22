@@ -4,7 +4,7 @@
         <h1>Checkout</h1>
     </div>
     <div class="checkout__container">
-        <div class="checkout__bill-container" *ngIf="card$">
+        <div class="checkout__bill-container">
             <div *ngFor="let item of cart.items" class="checkout__items">
                 <div *ngIf="item.id == product$ || !product$" class="checkout__item">
                     <h2 class="checkout__item-name">{{item.name}}</h2>
@@ -33,9 +33,9 @@
             </div>
         </div>
 
-        <div class="checkout__card-container">
+        <div class="checkout__card-container" *ngIf="cardForm">
             <form method="POST">
-                <form method="POST" [formGroup]="cardForm" (ngSubmit)="payAmount()" novalidate>
+                <form method="POST" [formGroup]="cardForm" novalidate>
                     <div class="form__field">
                         <label for="number">Card Number</label>
                         <input type="text" formControlName="number" id="number">
@@ -56,7 +56,7 @@
                         </select>
                     </div>
                     <div>
-                        <button type="submit" [disabled]="!cardForm.valid">Pay Amount</button>
+                        <button type="submit" [disabled]="!cardForm.valid" (click)="payAmount()" >Pay Amount</button>
                     </div>
                     <div>
                         <button [disabled]="!cardForm.valid" (click) = "saveCard()">Save Card Info</button>
