@@ -9,15 +9,15 @@ module.exports = class Order {
   }
 
   static fetchAll(){
-    return db.execute("SELECT * FROM order");
+    return db.execute("SELECT * FROM `order`");
   }
 
   static find(id) {
-    return db.execute("SELECT * FROM order WHERE id = ?", [id]);
+    return db.execute("SELECT * FROM `order` WHERE id = ?", [id]);
   }
 
   static findByUser(user) {
-    return db.execute("SELECT * FROM order WHERE user = ?", [user]);
+    return db.execute("SELECT * FROM `order` WHERE user = ?", [user]);
   }
 
   static create(order) {
@@ -28,7 +28,7 @@ module.exports = class Order {
   }
 
   static update(id, order) {
-    return db.execute("UPDATE order SET status = ? WHERE id = ?", [
+    return db.execute("UPDATE `order` SET status = ? WHERE id = ?", [
       order.status,
       id,
     ]);

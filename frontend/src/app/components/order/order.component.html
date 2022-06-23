@@ -1,0 +1,45 @@
+<app-navigation></app-navigation>
+<div *ngIf="openedOrder$ | async as openedOrder">
+    <div class="modal" *ngIf="isOrderModalOpen$">
+        <div class="modal__backdrop" (click)="closeOrderModal()"></div>
+        <div class="modal__content order-modal__content">
+            <h1> Order #{{openedOrder.id}} </h1>
+            <div *ngFor="let item of openedOrder.detail" class="order-modal__item">
+                <p class="order-modal__item-name">{{item.name}}</p>
+                <p class="order-modal__item-quantity">Quantity: {{item.quantity}}</p>
+                <b>
+                    <p class="order-modal__item-price">${{item.price * item.quantity}}</p>
+                </b>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="order" *ngIf="orders$ | async as orders">
+    <div class="order__header">
+        <h1>Orders</h1>
+        <div>
+            <form [formGroup]="orderSearchForm" (ngSubmit)="searchOrder()">
+                <input type="number" name="" id="order-number" placeholder="Order #" formControlName="orderId">
+            </form>
+        </div>
+    </div>
+    <div class="order__container">
+        <div *ngFor="let order of orders" class="order__item" (click)="openOrder(order.id)">
+            <h2 class="order__id">#{{order.id}}</h2>
+            <div class="order__status">
+                <b>Status: </b>
+                <p *ngIf="!isAdmin$">{{order.status}}</p>
+                <div *ngIf="isAdmin$" (click)="stopProp($event)">
+                    <form [formGroup]="orderSearchForm">
+                        <select formControlName="orderStatus" (change)="updateStatus(order.id)">
+                            <option value="CONFIRMED" [selected]="order.status === 'CONFIRMED'">CONFIRMED</option>
+                            <option value="SHIPPED" [selected]="order.status === 'SHIPPED'">SHIPPED</option>
+                            <option value="DELIVERED" [selected]="order.status === 'DELIVERED'">DELIVERED</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <h1 class="order__price">${{order.price.toFixed(2)}}</h1>
+        </div>
+    </div>
+</div>

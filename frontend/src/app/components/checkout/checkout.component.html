@@ -34,35 +34,33 @@
         </div>
 
         <div class="checkout__card-container" *ngIf="cardForm">
-            <form method="POST">
-                <form method="POST" [formGroup]="cardForm" novalidate>
-                    <div class="form__field">
-                        <label for="number">Card Number</label>
-                        <input type="text" formControlName="number" id="number">
-                    </div>
-                    <div class="form__field">
-                        <label for="CCV">CCV</label>
-                        <input type="ccv" formControlName="ccv" id="ccv">
-                    </div>
-                    <div class="form__field">
-                        <label for="validity">Expiry</label>
-                        <input type="date" formControlName="validity" id="validity">
-                    </div>
-                    <div class="form__field">
-                        <label for="type">Card Type</label>
-                        <select name="type" id="type" formControlName="type">
-                            <option value="visa">Visa</option>
-                            <option value="mastercard">Mastercard</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button type="submit" [disabled]="!cardForm.valid" (click)="payAmount()" >Pay Amount</button>
-                    </div>
-                    <div>
-                        <button [disabled]="!cardForm.valid" (click) = "saveCard()">Save Card Info</button>
-                    </div>
-                </form>
+            <form method="POST" [formGroup]="cardForm" novalidate>
+                <div class="form__field">
+                    <label for="number">Card Number</label>
+                    <input type="text" formControlName="number" id="number">
+                </div>
+                <div class="form__field">
+                    <label for="CCV">CCV</label>
+                    <input type="ccv" formControlName="ccv" id="ccv">
+                </div>
+                <div class="form__field">
+                    <label for="validity">Expiry</label>
+                    <input type="date" formControlName="validity" id="validity">
+                </div>
+                <div class="form__field">
+                    <label for="type">Card Type</label>
+                    <select name="type" id="type" formControlName="type">
+                        <option value="visa">Visa</option>
+                        <option value="mastercard">Mastercard</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" [disabled]="!cardForm.valid" (click)="payAmount()">Pay Amount</button>
+                </div>
+                <div>
+                    <button [disabled]="!cardForm.valid" (click)="saveCard()">Save Card Info</button>
+                </div>
             </form>
-        </div>
+∂        </div>
     </div>
 </div>

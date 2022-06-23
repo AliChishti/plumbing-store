@@ -6,7 +6,8 @@
   display: flex;
   gap: 10rem;
 }
-.checkout__bill-container, .checkout__card-container {
+.checkout__bill-container,
+.checkout__card-container {
   display: flex;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   flex-direction: column;
@@ -40,66 +41,66 @@
   text-align: right;
 }
 .checkout__total-price {
-    display: flex;
-    gap: 5rem;
-    justify-content: flex-end;
+  display: flex;
+  gap: 5rem;
+  justify-content: flex-end;
 }
 .checkout__total-price--number {
-    width: 10rem;
+  width: 10rem;
 }
 .checkout__total-price--number-big {
-    color: #d25e63;
+  color: #d25e63;
 }
 
-
-
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
 }
 
 .form__container {
-    flex: 1;
-    max-width: 50%;
+  flex: 1;
+  max-width: 50%;
 }
 
 .form__field {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 input {
-    outline: none;
-    padding: 0.5rem 0.25rem;
+  outline: none;
+  padding: 0.5rem 0.25rem;
 }
 
-input:focus, input:hover {
-    outline: none;
-    border: 2px solid #d25e63;
+input:focus,
+input:hover {
+  outline: none;
+  border: 2px solid #d25e63;
 }
 
-button{
-    background-color: #d25e63;
-    border: none;
-    padding: 1rem;
-    border-radius: 5px;
-    color: white;
-    width: 10rem;
-    font-size: 1rem;
-    cursor: pointer;
+button {
+  background-color: #d25e63;
+  border: none;
+  padding: 1rem;
+  border-radius: 5px;
+  color: white;
+  width: 10rem;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-button:hover{
-    background-color: #e26a6d;
+button:hover {
+  background-color: #e26a6d;
 }
 
-button:disabled, button[disabled] {
-    background-color: #999;
+button:disabled,
+button[disabled] {
+  background-color: #999;
 }

@@ -16,6 +16,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { CategoryComponent } from './components/category/category.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     CategoryComponent,
     CartComponent,
     CheckoutComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

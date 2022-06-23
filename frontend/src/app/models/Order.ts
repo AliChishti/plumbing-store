@@ -1,7 +1,7 @@
 export interface Order {
   id: number;
   user: number;
-  detail: string;
+  detail: any;
   status: string;
   price: number;
 }

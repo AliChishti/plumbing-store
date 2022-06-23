@@ -1,11 +1,14 @@
-
 const { validationResult } = require("express-validator");
 
 const Order = require("../models/order");
 
-
 exports.findByUser = async (req, res, next) => {
   try {
+    if (req.username === "admin") {
+      const orders = await Order.fetchAll();
+      res.json(orders[0]);
+    }
+
     const orders = await Order.findByUser(req.userId);
     res.json(orders[0]);
   } catch (error) {
@@ -17,17 +20,19 @@ exports.findByUser = async (req, res, next) => {
 };
 
 exports.find = async (req, res, next) => {
-    try {
-      const orders = await Order.findByUser(req.params.id);
-      res.json(orders[0][0]);
-    } catch (error) {
-      if (!error.statusCode) {
-        error.statusCode = 500;
-      }
-      next(error);
+  try {
+    const orders = await Order.find(req.params.id);
+    if(orders[0][0]){
+      orders[0][0].detail = JSON.parse(orders[0][0].detail)
     }
-  };
-  
+    res.json(orders[0][0]);
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
 
 exports.create = async (req, res, next) => {
   const errors = validationResult(req);
