@@ -43,6 +43,7 @@
 .order-modal__item {
   display: flex;
   gap: 5rem;
+  align-items: center;
 }
 .order-modal__item-name {
   width: 25%;

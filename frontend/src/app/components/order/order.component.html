@@ -10,6 +10,15 @@
                 <b>
                     <p class="order-modal__item-price">${{item.price * item.quantity}}</p>
                 </b>
+                <div *ngIf="isAdmin$" (click)="stopProp($event)">
+                    <form [formGroup]="orderSearchForm">
+                        <select formControlName="orderStatus" (change)="updateStatus(openedOrder.id)" onchange="window.location.reload()">
+                            <option value="CONFIRMED" [selected]="openedOrder.status === 'CONFIRMED'">CONFIRMED</option>
+                            <option value="SHIPPED" [selected]="openedOrder.status === 'SHIPPED'">SHIPPED</option>
+                            <option value="DELIVERED" [selected]="openedOrder.status === 'DELIVERED'">DELIVERED</option>
+                        </select>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
