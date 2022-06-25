@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { StoreComponent } from '../store/store.component';
 import { ProductService } from 'src/app/services/product.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/Category';
 
 @Component({

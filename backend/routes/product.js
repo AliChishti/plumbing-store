@@ -14,6 +14,8 @@ const auth = require("../middleware/auth");
 
 router.get("/", auth, productController.get);
 
+router.post("/search", auth, productController.search);
+
 router.post(
   "/",
   [

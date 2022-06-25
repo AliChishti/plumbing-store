@@ -17,6 +17,10 @@ module.exports = class Product {
     return db.execute("SELECT * FROM product WHERE id = ?", [id]);
   }
 
+  static search(product, category){
+    return db.execute("SELECT p.id , p.name , p.description , p.image , p.price , c.name as category FROM product p INNER JOIN category c on c.id = p.category WHERE p.name LIKE ? OR `category` = ?", ['%' + product + '%', category]);
+  }
+
   static findByName(name) {
     return db.execute("SELECT * FROM product WHERE name = ?", [name]);
   }

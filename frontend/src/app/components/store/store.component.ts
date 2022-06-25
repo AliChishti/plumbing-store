@@ -15,6 +15,8 @@ import { Order } from 'src/app/models/Order';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { Rating } from 'src/app/models/Ratings';
 import { Feedback } from 'src/app/models/Feedback';
+import { Category } from 'src/app/models/Category';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-store',
@@ -23,6 +25,7 @@ import { Feedback } from 'src/app/models/Feedback';
 })
 export class StoreComponent implements OnInit {
   feedbackForm!: FormGroup;
+  productSearchForm!: FormGroup;
   feedbackProductId$!: number;
   products$!: Observable<Product[]>;
   deliveredProducts$!: Observable<number[]>;
@@ -34,14 +37,15 @@ export class StoreComponent implements OnInit {
   isProductModalOpen$!: boolean;
   rating$!: number;
   productRatings$!: Observable<Rating []>;
-  productFeedbacks$!: Observable<Feedback []>; 
-
+  productFeedbacks$!: Observable<Feedback []>;
+  categories$!: Observable<Category[]>;
 
   constructor(
     private productService: ProductService,
     private cartService: CartService,
     private orderService: OrderService,
     private feedbackService: FeedbackService,
+    private categoryService: CategoryService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -54,18 +58,31 @@ export class StoreComponent implements OnInit {
     this.productIdsFeedbacked$ = this.getProductsThatwereFeedbacked();
     this.feedbackForm = this.createFormGroup();
     this.productRatings$ = this.getRatings();
-
-    console.log(this.productRatings$.subscribe((msg)=>console.log(msg)));
+    this.categories$ = this.categoryService.fetchAll();
+    this.productSearchForm = this.createProductSearchFormGroup();
   }
 
   getRatings() {
     return this.feedbackService.getRatings();
   }
+
   createFormGroup(): FormGroup {
     return new FormGroup({
       comment: new FormControl(''),
     });
   }
+
+  createProductSearchFormGroup(): FormGroup {
+    return new FormGroup({
+      product: new FormControl(''),
+      category: new FormControl(''),
+    });
+  }
+
+  searchProducts() {
+   this.products$ = this.productService.search(this.productSearchForm.value);
+  }
+
 
   getProductsThatwereFeedbacked(): any {
     return this.feedbackService.getByUser();

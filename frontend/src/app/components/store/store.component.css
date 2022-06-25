@@ -106,7 +106,7 @@ h1 {
   border-radius: 5px;
   cursor: pointer;
   margin-right: 2rem;
-  width: 12rem;
+  width: 14rem;
 }
 
 .product__add-btn:hover {
@@ -129,4 +129,19 @@ h1 {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.store__header-search{
+  display: flex;
+  flex-direction: column;
+}
+.product__search-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 40rem;
+
+}
+.product__search-category{
+  width: 12rem;
 }

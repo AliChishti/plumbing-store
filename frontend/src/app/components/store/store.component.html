@@ -8,7 +8,8 @@
         <h1>Add Feedback</h1>
         <form method="POST" [formGroup]="feedbackForm" novalidate>
             <div class="form__field">
-                <textarea id="comment" cols="80" rows="10" placeholder="Add Comments..." formControlName="comment"></textarea>
+                <textarea id="comment" cols="80" rows="10" placeholder="Add Comments..."
+                    formControlName="comment"></textarea>
                 <star-rating size="large" (ratingChange)="onRatingChange($event)"></star-rating>
             </div>
             <div>
@@ -34,7 +35,22 @@
 
 <div class="store" *ngIf="productRatings$ | async as productRatings">
     <div class="store__header">
-        <h1>Products</h1>
+        <div class="store__header-search">
+            <h1>Products</h1>
+            <form method="POST" [formGroup]="productSearchForm" class="product__search-form" (ngSubmit)="searchProducts()">
+                <input type="text" placeholder="Search Product..." name="product" formControlName="product">
+                <div>
+                    <label for="category"><b>Filter Category</b></label>
+                    <select name="category" id="" formControlName="category" class="product__search-category">
+                        <option value="">Unselect Category</option>
+                        <option *ngFor="let category of categories$ | async" value="{{category.id}}">{{category.name}}
+                        </option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <button type="submit" class="product__delete-btn">Search</button>
+                </div>
+            </form>
+        </div>
         <div class="store__buttons">
             <div *ngIf="isAdmin$">
                 <button class="product__add-btn" (click)="openProductModal()">Add new Item</button>
@@ -42,6 +58,7 @@
             <div *ngIf="isAdmin$">
                 <button class="product__add-btn" (click)="openCategoryModal()">Add new Category</button>
             </div>
+
         </div>
     </div>
 
@@ -66,16 +83,20 @@
             </div>
 
             <div *ngFor="let r of productRatings">
-                <star-rating size="large" *ngIf="product.id == r.id" [rating]="r.rating" [showHalfStars]="true" class="product__rating"></star-rating>
+                <star-rating size="large" *ngIf="product.id == r.id" [rating]="r.rating" [showHalfStars]="true"
+                    class="product__rating"></star-rating>
             </div>
 
             <div class="product__interact">
                 <button *ngIf="!isAdmin$" class="product__add-btn" (click)="addToCart(product.id)">Add to Cart</button>
-                <button *ngIf="!isAdmin$" class="product__add-btn" (click)="openViewFeedbackModal(product.id)">View Feedback</button>
+                <button *ngIf="!isAdmin$" class="product__add-btn" (click)="openViewFeedbackModal(product.id)">View
+                    Feedback</button>
                 <button *ngIf="isAdmin$" class="product__delete-btn" (click)="delete(product.id)">Delete Item</button>
                 <div *ngIf="deliveredProducts$ | async as dProducts">
-                    <div  *ngIf="productIdsFeedbacked$ | async as fProducts">
-                        <button class="product__add-btn" *ngIf="dProducts.includes(product.id) && !isAdmin$ && !fProducts.includes(product.id)" (click)="openFeedbackModal(product.id)">Give Feedback</button>
+                    <div *ngIf="productIdsFeedbacked$ | async as fProducts">
+                        <button class="product__add-btn"
+                            *ngIf="dProducts.includes(product.id) && !isAdmin$ && !fProducts.includes(product.id)"
+                            (click)="openFeedbackModal(product.id)">Give Feedback</button>
                     </div>
                 </div>
             </div>

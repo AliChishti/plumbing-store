@@ -43,6 +43,19 @@ export class ProductService {
       );
   }
 
+  search(searchParams: Omit<Product, "id" | "description" | "image" | "price">): Observable<Product []>{
+    return this.http
+      .post<Product[]>(this.url + "search", searchParams ,this.httpOptions)
+      .pipe(
+        catchError(
+          this.errorHandlerService.handleError<Product[]>(
+            'searchProduct',
+            []
+          )
+        )
+      );
+  }
+
   delete(id: number) {
     return this.http
       .delete(this.url + id)

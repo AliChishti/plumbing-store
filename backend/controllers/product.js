@@ -17,6 +17,21 @@ exports.get = async (req, res, next) => {
   }
 };
 
+exports.search = async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const products = await Product.search(req.body.product, req.body.category);
+    console.log(products[0]);
+    res.json(products[0]);
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
+
 exports.create = async (req, res, next) => {
   const errors = validationResult(req);
 
