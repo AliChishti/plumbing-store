@@ -10,15 +10,28 @@ module.exports = class Product {
   }
 
   static get() {
-    return db.execute("SELECT p.id , p.name , p.description , p.image , p.price , c.name as category FROM product p INNER JOIN category c on c.id = p.category;");
+    return db.execute(
+      "SELECT p.id , p.name , p.description , p.image , p.price , c.name as category FROM product p INNER JOIN category c on c.id = p.category;"
+    );
   }
 
   static find(id) {
     return db.execute("SELECT * FROM product WHERE id = ?", [id]);
   }
 
-  static search(product, category){
-    return db.execute("SELECT p.id , p.name , p.description , p.image , p.price , c.name as category FROM product p INNER JOIN category c on c.id = p.category WHERE p.name LIKE ? OR `category` = ?", ['%' + product + '%', category]);
+  static search(product, category) {
+    if (category) {
+      return db.execute(
+        "SELECT p.id , p.name , p.description , p.image , p.price , c.name as category FROM product p INNER JOIN category c on c.id = p.category WHERE p.name LIKE ? AND `category` = ?",
+        ["%" + product + "%", category]
+      );
+    }
+    else {
+      return db.execute(
+        "SELECT p.id , p.name , p.description , p.image , p.price , c.name as category FROM product p INNER JOIN category c on c.id = p.category WHERE p.name LIKE ?",
+        ["%" + product + "%"]
+      );
+    }
   }
 
   static findByName(name) {

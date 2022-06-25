@@ -20,7 +20,7 @@ exports.get = async (req, res, next) => {
 exports.search = async (req, res, next) => {
   try {
     console.log(req.body)
-    const products = await Product.search(req.body.product, req.body.category);
+    const products = await Product.search(req.body.product ?? null, req.body.category ?? null);
     console.log(products[0]);
     res.json(products[0]);
   } catch (error) {
