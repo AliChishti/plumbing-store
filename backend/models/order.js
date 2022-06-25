@@ -20,6 +20,10 @@ module.exports = class Order {
     return db.execute("SELECT * FROM `order` WHERE user = ?", [user]);
   }
 
+  static findDelivered(user) {
+    return db.execute("SELECT * FROM `order` WHERE user = ? AND status = 'DELIVERED'", [user]);
+  }
+
   static create(order) {
     return db.execute( 
       "INSERT INTO `order` (user, detail, status, price) VALUES(?, ?, ?, ?)",

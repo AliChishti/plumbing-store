@@ -22,13 +22,7 @@ h1 {
     color: #d25e63;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    margin-right: 2rem;
-}
+
 
 .form__container {
     flex: 1;

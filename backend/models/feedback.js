@@ -16,6 +16,23 @@ module.exports = class Feedback {
     return db.execute("SELECT * FROM feedback WHERE product = ?", [product]);
   }
 
+  static findByUser(user) {
+    return db.execute("SELECT * FROM feedback WHERE user = ?", [user]);
+  }
+
+  static findByUserAndProduct(user, product) {
+    return db.execute("SELECT * FROM feedback WHERE user = ? AND product = ?", [
+      user,
+      product,
+    ]);
+  }
+
+  static getProductsRatings() {
+    return db.execute(
+      "SELECT p.id , AVG(f.rating) as rating FROM product p LEFT JOIN feedback f ON f.product = p.id GROUP BY p.id"
+    );
+  }
+
   static create(feedback) {
     return db.execute(
       "INSERT INTO feedback (product, user, rating, comment) VALUES(?, ?, ?, ?)",

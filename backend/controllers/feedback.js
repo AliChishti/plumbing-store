@@ -14,6 +14,31 @@ exports.findByProduct = async (req, res, next) => {
   }
 };
 
+exports.getProductsRatings = async (req, res, next) => {
+  try {
+    const ratings = await Feedback.getProductsRatings();
+    res.json(ratings[0]);
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
+exports.findByUser = async (req, res, next) => {
+  try {
+    const feedbacks = await Feedback.findByUser(req.userId);
+    const productIds = feedbacks[0].map((feedback) => feedback.product);
+    res.json(productIds);
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
 exports.create = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -22,11 +47,15 @@ exports.create = async (req, res, next) => {
   }
 
   const product = req.params.id;
-  const user = req.body.user;
+  const user = req.userId;
   const rating = req.body.rating;
   const comment = req.body.comment ?? null;
 
   try {
+    const feedback = await Feedback.findByUserAndProduct(user, product);
+    if (feedback[0].length > 0) {
+      return res.json({ message: "You've already given a feedback" });
+    }
     await Feedback.create({ product, user, rating, comment });
     res.status(201).json({ message: "Feedback added successfully!" });
   } catch (error) {

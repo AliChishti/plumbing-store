@@ -7,6 +7,8 @@ const orderController = require("../controllers/order");
 
 const auth = require("../middleware/auth");
 
+router.get("/delivered", auth, orderController.findDelivered);
+
 router.get("/:id", auth, orderController.find);
 
 router.get("/", auth, orderController.findByUser);

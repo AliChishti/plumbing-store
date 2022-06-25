@@ -1,7 +1,38 @@
 <app-navigation></app-navigation>
 <app-create-product *ngIf="isProductModalOpen$"></app-create-product>
 <app-category *ngIf="isCategoryModalOpen$"></app-category>
-<div class="store">
+
+<div class="modal" *ngIf="isFeedbackModalOpen$">
+    <div class="modal__backdrop" (click)="closeFeedbackModal()"></div>
+    <div class="modal__content">
+        <h1>Add Feedback</h1>
+        <form method="POST" [formGroup]="feedbackForm" novalidate>
+            <div class="form__field">
+                <textarea id="comment" cols="80" rows="10" placeholder="Add Comments..." formControlName="comment"></textarea>
+                <star-rating size="large" (ratingChange)="onRatingChange($event)"></star-rating>
+            </div>
+            <div>
+                <button class="form__button" [disabled]="!rating$" (click)="addFeedback()">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" *ngIf="isViewFeedbackModalOpen$">
+    <div class="modal__backdrop" (click)="closeViewFeedbackModal()"></div>
+    <div class="modal__content">
+        <h1>Product Feedback</h1>
+        <div *ngFor="let feedback of productFeedbacks$ | async">
+            <div class="product__feedbacks">
+                <p>{{feedback.comment}}</p>
+                <star-rating [rating]="feedback.rating"></star-rating>
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div class="store" *ngIf="productRatings$ | async as productRatings">
     <div class="store__header">
         <h1>Products</h1>
         <div class="store__buttons">
@@ -34,12 +65,19 @@
                 <p class="product__category">{{product.category}}</p>
             </div>
 
+            <div *ngFor="let r of productRatings">
+                <star-rating size="large" *ngIf="product.id == r.id" [rating]="r.rating" [showHalfStars]="true" class="product__rating"></star-rating>
+            </div>
+
             <div class="product__interact">
                 <button *ngIf="!isAdmin$" class="product__add-btn" (click)="addToCart(product.id)">Add to Cart</button>
+                <button *ngIf="!isAdmin$" class="product__add-btn" (click)="openViewFeedbackModal(product.id)">View Feedback</button>
                 <button *ngIf="isAdmin$" class="product__delete-btn" (click)="delete(product.id)">Delete Item</button>
-
-                <!-- <p class="product__feedback-title">View Reviews <img class="icon"
-                        src="assets/images/static/arrow-down.png" alt=""></p> -->
+                <div *ngIf="deliveredProducts$ | async as dProducts">
+                    <div  *ngIf="productIdsFeedbacked$ | async as fProducts">
+                        <button class="product__add-btn" *ngIf="dProducts.includes(product.id) && !isAdmin$ && !fProducts.includes(product.id)" (click)="openFeedbackModal(product.id)">Give Feedback</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

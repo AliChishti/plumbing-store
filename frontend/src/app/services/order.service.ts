@@ -42,6 +42,18 @@ export class OrderService {
       );
   }
 
+  getByUserDelivered() {
+    return this.http
+      .get(`${this.url}/delivered`, { responseType: 'json' })
+      .pipe(
+        first(),
+        catchError(
+          this.errorHandlerService.handleError('getOrdersByUserDelivered')
+        )
+      );
+  }
+
+
   updateStatus(status: object, order: number): Observable<Order> {
     return this.http
       .patch<Order>(`${this.url}/${order}`, status, this.httpOptions)

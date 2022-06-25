@@ -34,6 +34,23 @@ exports.find = async (req, res, next) => {
   }
 };
 
+exports.findDelivered = async (req, res, next) => {
+  try {
+    const orders = await Order.findDelivered(req.userId);
+
+    let delivered;
+    orders[0].forEach((order) => {
+      delivered = JSON.parse(order.detail).map((item) => item.id)
+    })
+    res.json(delivered);
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
 exports.create = async (req, res, next) => {
   const errors = validationResult(req);
 
