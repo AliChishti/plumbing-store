@@ -1,41 +1,7 @@
-nav {
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    background-color: #f8c7c7;
-    flex-direction: row;
-    padding-inline: 5rem;
-    justify-content: space-between;
-    font-size: 1.5rem;
-    position: sticky;
-    align-content: center;
-}
-
-.nav__img {
+.nav__img{
     height: 8rem;
-}
-.nav__title {
-    color: white;
-}
-.nav__logo {
-    display: flex;
-    align-items: center;
-}
-
-span{
-    display: flex;
-    gap: 2rem;
-    align-items: center;
 }
 
 .nav__logout{
-    margin-left: 8rem;
-}
-
-h4:hover{
-    cursor: pointer;
-    color: #d25e63;
-}
-
-a {
-    all: unset;
+    margin-right: 10rem;
 }

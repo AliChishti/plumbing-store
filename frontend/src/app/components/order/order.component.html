@@ -2,44 +2,52 @@
 <div *ngIf="openedOrder$ | async as openedOrder">
     <div class="modal" *ngIf="isOrderModalOpen$">
         <div class="modal__backdrop" (click)="closeOrderModal()"></div>
-        <div class="modal__content order-modal__content">
+        <div class="modal__content">
             <h1> Order #{{openedOrder.id}} </h1>
-            <div *ngFor="let item of openedOrder.detail" class="order-modal__item">
-                <p class="order-modal__item-name">{{item.name}}</p>
-                <p class="order-modal__item-quantity">Quantity: {{item.quantity}}</p>
-                <b>
-                    <p class="order-modal__item-price">${{item.price * item.quantity}}</p>
-                </b>
-                <div *ngIf="isAdmin$" (click)="stopProp($event)">
-                    <form [formGroup]="orderSearchForm">
-                        <select formControlName="orderStatus" (change)="updateStatus(openedOrder.id)" onchange="window.location.reload()">
-                            <option value="CONFIRMED" [selected]="openedOrder.status === 'CONFIRMED'">CONFIRMED</option>
-                            <option value="SHIPPED" [selected]="openedOrder.status === 'SHIPPED'">SHIPPED</option>
-                            <option value="DELIVERED" [selected]="openedOrder.status === 'DELIVERED'">DELIVERED</option>
-                        </select>
-                    </form>
+            <div *ngFor="let item of openedOrder.detail" >
+                <div class="flex container--row container--space-bw order__detail">
+                    <b>{{item.name}}</b>
+                    <p>Quantity: {{item.quantity}}</p>
+                    <p>
+                        <b class="product__price">${{item.price * item.quantity}}</b>
+                    </p>
+                    <div *ngIf="isAdmin$" (click)="stopProp($event)">
+                        <form [formGroup]="orderSearchForm">
+                            <select formControlName="orderStatus" (change)="updateStatus(openedOrder.id)"
+                                onchange="window.location.reload()">
+                                <option value="CONFIRMED" [selected]="openedOrder.status === 'CONFIRMED'">CONFIRMED
+                                </option>
+                                <option value="SHIPPED" [selected]="openedOrder.status === 'SHIPPED'">SHIPPED</option>
+                                <option value="DELIVERED" [selected]="openedOrder.status === 'DELIVERED'">DELIVERED
+                                </option>
+                            </select>
+                        </form>
+                    </div>
                 </div>
+                <hr>
             </div>
         </div>
     </div>
 </div>
-<div class="order" *ngIf="orders$ | async as orders">
-    <div class="order__header">
+<div class="container" *ngIf="orders$ | async as orders">
+    <div class="content__header order__header">
         <h1>Orders</h1>
-        <div>
+        <div class="content__header-btns">
             <form [formGroup]="orderSearchForm" (ngSubmit)="searchOrder()">
                 <input type="number" name="" id="order-number" placeholder="Order #" formControlName="orderId">
+                <button type="sunmit" class="btn btn--primary">Search</button>
             </form>
         </div>
     </div>
-    <div class="order__container">
-        <div *ngFor="let order of orders" class="order__item" (click)="openOrder(order.id)">
-            <h2 class="order__id">#{{order.id}}</h2>
-            <div class="order__status">
+    <div class="container container--no-mg">
+        <div *ngFor="let order of orders" class="order__item" (click)="openOrder(order.id)"
+            class="container container--no-mg container--shadow container--row container--pd container--space-bw order__container">
+            <h2>#{{order.id}}</h2>
+            <div class="flex container--row">
                 <b>Status: </b>
                 <p *ngIf="!isAdmin$">{{order.status}}</p>
                 <div *ngIf="isAdmin$" (click)="stopProp($event)">
-                    <form [formGroup]="orderSearchForm">
+                    <form [formGroup]="orderSearchForm" class="order__form">
                         <select formControlName="orderStatus" (change)="updateStatus(order.id)">
                             <option value="CONFIRMED" [selected]="order.status === 'CONFIRMED'">CONFIRMED</option>
                             <option value="SHIPPED" [selected]="order.status === 'SHIPPED'">SHIPPED</option>
@@ -48,7 +56,7 @@
                     </form>
                 </div>
             </div>
-            <h1 class="order__price">${{order.price.toFixed(2)}}</h1>
+            <h1 class="product__price">${{order.price.toFixed(2)}}</h1>
         </div>
     </div>
 </div>

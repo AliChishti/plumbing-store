@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -46,6 +46,7 @@ export class StoreComponent implements OnInit {
     private orderService: OrderService,
     private feedbackService: FeedbackService,
     private categoryService: CategoryService,
+    private renderer: Renderer2,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -139,6 +140,7 @@ export class StoreComponent implements OnInit {
     this.isViewFeedbackModalOpen$ = true;
     this.feedbackProductId$ = product;
     this.productFeedbacks$ = this.feedbackService.getByProduct(this.feedbackProductId$);
+    
   }
   closeViewFeedbackModal() {
     this.isViewFeedbackModalOpen$ = false;

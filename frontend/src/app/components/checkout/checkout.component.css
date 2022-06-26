@@ -4,7 +4,7 @@
 
 .checkout__container {
   display: flex;
-  gap: 10rem;
+  gap: 5rem;
 }
 .checkout__bill-container,
 .checkout__card-container {
@@ -103,4 +103,23 @@ button:hover {
 button:disabled,
 button[disabled] {
   background-color: #999;
+}
+
+@media screen and (max-width: 700px) {
+  .checkout__container {
+    flex-direction: column;
+    gap: 5rem;
+  }
+  .checkout__bill-container,
+  .checkout__card-container {
+    width: auto;
+  }
+  .checkout__item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .checkout__total-price {
+    gap: 0;
+  }
 }

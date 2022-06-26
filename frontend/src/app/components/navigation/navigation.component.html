@@ -1,13 +1,15 @@
-<nav>
-    <div class="nav__logo">
+<nav class="container container--row container--no-mg">
+    <div class="flex container--row">
         <img src="assets/images/store.png" class="nav__img" alt="">
         <a href="/"><h4 class="nav__title">Plumbing Store</h4></a>
     </div>
 
-    <span>
+    <span class="container--row">
         <a href="/store"><h4>Store</h4></a>
         <a href="/orders"><h4>Orders</h4></a>        
         <a href="/cart"><h4>Cart</h4></a>
-        <h4 class="nav__logout" (click)="logout()">Logout</h4>
+        <h4 (click)="logout()">Logout</h4>
     </span>
+
+
 </nav>
