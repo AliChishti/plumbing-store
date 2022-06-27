@@ -17,6 +17,7 @@ export class OrderComponent implements OnInit {
   isOrderModalOpen$!: boolean;
   openOrderId$!: number | null;
   isAdmin$!: boolean;
+  offset$!: number;
 
   constructor(private orderService: OrderService) {}
 
@@ -37,6 +38,7 @@ export class OrderComponent implements OnInit {
   openOrder(order: number) {
     this.openedOrder$ = this.orderService.get(order);
     this.isOrderModalOpen$ = true;
+    this.offset$ = window.pageYOffset;
   }
 
   closeOrderModal() {

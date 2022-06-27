@@ -2,7 +2,7 @@
 <div *ngIf="openedOrder$ | async as openedOrder">
     <div class="modal" *ngIf="isOrderModalOpen$">
         <div class="modal__backdrop" (click)="closeOrderModal()"></div>
-        <div class="modal__content">
+        <div class="modal__content" [ngStyle]="{'top': (offset$ + 20) +'px'}">
             <h1> Order #{{openedOrder.id}} </h1>
             <div *ngFor="let item of openedOrder.detail" >
                 <div class="flex container--row container--space-bw order__detail">

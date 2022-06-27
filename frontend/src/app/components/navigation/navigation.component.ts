@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent implements OnInit {
+  openMenu$!: boolean;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
@@ -18,5 +19,11 @@ export class NavigationComponent implements OnInit {
     localStorage.removeItem('user');
     this.authService.isUserLoggedIn$.next(false);
     this.router.navigate(['login']);
+
+    this.openMenu$ = false;
+  }
+
+  toggleMenu(){
+    this.openMenu$ = !this.openMenu$;
   }
 }

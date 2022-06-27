@@ -4,7 +4,7 @@
 
 <div class="modal" *ngIf="isFeedbackModalOpen$">
     <div class="modal__backdrop" (click)="closeFeedbackModal()"></div>
-    <div class="modal__content">
+    <div class="modal__content" [ngStyle]="{'top': (offset$ + 20) +'px'}">
         <h1>Add Feedback</h1>
         <form method="POST" [formGroup]="feedbackForm" novalidate>
             <div class="form__field">
@@ -21,7 +21,7 @@
 
 <div class="modal" *ngIf="isViewFeedbackModalOpen$">
     <div class="modal__backdrop" (click)="closeViewFeedbackModal()"></div>
-    <div class="modal__content">
+    <div class="modal__content" [ngStyle]="{'top': (offset$ + 20) +'px'}">
         <h1>Product Feedback</h1>
         <div *ngFor="let feedback of productFeedbacks$ | async">
             <div class="container container--row container--no-mg feedback__container">

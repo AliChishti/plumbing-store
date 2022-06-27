@@ -39,6 +39,7 @@ export class StoreComponent implements OnInit {
   productRatings$!: Observable<Rating []>;
   productFeedbacks$!: Observable<Feedback []>;
   categories$!: Observable<Category[]>;
+  offset$!: number;
 
   constructor(
     private productService: ProductService,
@@ -140,7 +141,7 @@ export class StoreComponent implements OnInit {
     this.isViewFeedbackModalOpen$ = true;
     this.feedbackProductId$ = product;
     this.productFeedbacks$ = this.feedbackService.getByProduct(this.feedbackProductId$);
-    
+    this.offset$ = window.pageYOffset;
   }
   closeViewFeedbackModal() {
     this.isViewFeedbackModalOpen$ = false;
