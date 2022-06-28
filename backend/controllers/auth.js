@@ -11,7 +11,7 @@ exports.signup = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.json({ error: errors.errors[0].msg });
+    return res.json({ error: errors.errors[0] });
   }
 
   const username = req.body.username;

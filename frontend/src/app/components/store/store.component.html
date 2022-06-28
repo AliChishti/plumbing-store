@@ -88,7 +88,8 @@
             </ng-container>
 
             <div class="container__header-btns product__btns">
-                <button *ngIf="!isAdmin$" class="btn btn--accent" (click)="addToCart(product.id)">Add to Cart</button>
+                <button *ngIf="!isAdmin$ && !cartItems$.includes(product.id)" class="btn btn--accent" (click)="addToCart(product.id)">Add to Cart</button>
+                <button *ngIf="!isAdmin$ && cartItems$.includes(product.id)" class="btn btn--accept">Added to Cart</button>
                 <button class="btn btn--accent" (click)="openViewFeedbackModal(product.id)">View
                     Feedback</button>
                 <button *ngIf="isAdmin$" class="btn btn--primary" (click)="delete(product.id)">Delete Item</button>

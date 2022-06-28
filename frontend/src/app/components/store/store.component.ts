@@ -17,6 +17,7 @@ import { Rating } from 'src/app/models/Ratings';
 import { Feedback } from 'src/app/models/Feedback';
 import { Category } from 'src/app/models/Category';
 import { CategoryService } from 'src/app/services/category.service';
+import { Cart } from 'src/app/models/Cart';
 
 @Component({
   selector: 'app-store',
@@ -36,10 +37,11 @@ export class StoreComponent implements OnInit {
   isCategoryModalOpen$!: boolean;
   isProductModalOpen$!: boolean;
   rating$!: number;
-  productRatings$!: Observable<Rating []>;
-  productFeedbacks$!: Observable<Feedback []>;
+  productRatings$!: Observable<Rating[]>;
+  productFeedbacks$!: Observable<Feedback[]>;
   categories$!: Observable<Category[]>;
   offset$!: number;
+  cartItems$!: number[];
 
   constructor(
     private productService: ProductService,
@@ -53,6 +55,7 @@ export class StoreComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.cartItems$ = [];
     this.isAdmin$ = localStorage.getItem('user') === '"admin"';
     this.isCategoryModalOpen$ = false;
     this.products$ = this.fetchAll();
@@ -62,6 +65,11 @@ export class StoreComponent implements OnInit {
     this.productRatings$ = this.getRatings();
     this.categories$ = this.categoryService.fetchAll();
     this.productSearchForm = this.createProductSearchFormGroup();
+    this.cartService.get().subscribe((cart) => {
+      cart.items.forEach((item: { id: number; }) => {
+        this.cartItems$.push(item.id);
+      });
+    });
   }
 
   getRatings() {
@@ -82,9 +90,8 @@ export class StoreComponent implements OnInit {
   }
 
   searchProducts() {
-   this.products$ = this.productService.search(this.productSearchForm.value);
+    this.products$ = this.productService.search(this.productSearchForm.value);
   }
-
 
   getProductsThatwereFeedbacked(): any {
     return this.feedbackService.getByUser();
@@ -112,11 +119,13 @@ export class StoreComponent implements OnInit {
   }
 
   addFeedback() {
-    this.feedbackService.addFeeback(
-      this.rating$,
-      this.feedbackForm.value.comment,
-      this.feedbackProductId$
-    ).subscribe();
+    this.feedbackService
+      .addFeeback(
+        this.rating$,
+        this.feedbackForm.value.comment,
+        this.feedbackProductId$
+      )
+      .subscribe();
 
     window.location.reload();
   }
@@ -140,7 +149,9 @@ export class StoreComponent implements OnInit {
   openViewFeedbackModal(product: number) {
     this.isViewFeedbackModalOpen$ = true;
     this.feedbackProductId$ = product;
-    this.productFeedbacks$ = this.feedbackService.getByProduct(this.feedbackProductId$);
+    this.productFeedbacks$ = this.feedbackService.getByProduct(
+      this.feedbackProductId$
+    );
     this.offset$ = window.pageYOffset;
   }
   closeViewFeedbackModal() {

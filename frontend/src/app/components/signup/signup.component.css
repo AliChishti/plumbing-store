@@ -76,7 +76,7 @@ a:hover {
     color: #ea8888;
 }
 
-.message, .error {
+.message {
     width: 50%;
     position: absolute;
     top: 10%;
@@ -92,7 +92,7 @@ a:hover {
 
 
 .error {
-    background-color: lightcoral;
+    color: red;
 }
 
 @media screen and (max-width: 700px) {

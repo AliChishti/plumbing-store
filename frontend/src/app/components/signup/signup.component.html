@@ -1,5 +1,4 @@
 <div class="message" [innerHTML]="msgStr" [hidden]="!msgStr"></div>
-<div class="error" [innerHTML]="errorStr" [hidden]="!errorStr"></div>
 
 <div class="container-border">
     <div>
@@ -11,14 +10,17 @@
             <div class="form__field">
                 <label for="username-email">Username</label>
                 <input type="text" formControlName="username" id="username" placeholder="Username">
+                <p class="error" [innerHTML]="userErrorStr" [hidden]="!userErrorStr"></p>
             </div>
             <div class="form__field">
                 <label for="email">Email</label>
                 <input type="email" formControlName="email" id="email" placeholder="Email">
+                <div class="error" [innerHTML]="emailErrorStr" [hidden]="!emailErrorStr"></div>
             </div>
             <div class="form__field">
                 <label for="username-email">Password</label>
                 <input type="password" formControlName="password" id="password">
+                <div class="error" [innerHTML]="passErrorStr" [hidden]="!passErrorStr"></div>
             </div>
             <div>
                 <button type="submit" [disabled]="!signupForm.valid">Signup</button>
