@@ -13,6 +13,11 @@
   100% { opacity: 1; }
 }
 
+@keyframes popup {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
 html {
   width: 100vw;
 }
@@ -236,6 +241,7 @@ select:hover {
   position: absolute;
   z-index: 5;
   border-radius: 5px;
+  animation: popup 0.3s;
 }
 
 .modal__backdrop {
