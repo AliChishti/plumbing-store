@@ -112,6 +112,7 @@ export class StoreComponent implements OnInit {
 
   addToCart(product: number) {
     this.cartService.update(product).subscribe();
+    this.cartItems$.push(product);
   }
 
   onRatingChange(event: any) {
