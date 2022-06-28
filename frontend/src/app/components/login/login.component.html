@@ -1,5 +1,4 @@
 <div class="message" [innerHTML]="msgStr" [hidden]="!msgStr"></div>
-<div class="error" [innerHTML]="errorStr" [hidden]="!errorStr"></div>
 
 <div class="container-border">
     <div>
@@ -16,6 +15,7 @@
                 <label for="username-email">Password</label>
                 <input type="password" name="password" id="password" formControlName="password">
             </div>
+            <div class="error" id="login-error"></div>
             <div>
                 <button [disabled]="!loginForm.valid">Login</button>
             </div>
