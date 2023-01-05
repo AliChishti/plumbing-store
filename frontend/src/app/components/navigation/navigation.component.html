@@ -1,0 +1,50 @@
+<nav class="container container--row container--no-mg nav--desktop">
+    <div class="flex container--row">
+        <img src="assets/images/store.png" class="nav__img" alt="">
+        <a href="/">
+            <h4 class="nav__title">Plumbing Store</h4>
+        </a>
+    </div>
+
+    <span class="container--row">
+        <a href="/store">
+            <h4>Store</h4>
+        </a>
+        <a href="/orders">
+            <h4>Orders</h4>
+        </a>
+        <a href="/cart">
+            <h4>Cart</h4>
+        </a>
+        <h4 (click)="logout()">Logout</h4>
+    </span>
+</nav>
+
+<nav class="nav--mobile">
+    <div class="nav--mobile__header">
+        <div class="flex container--row">
+            <a href="/">
+                <h4 class="nav__title">Plumbing Store</h4>
+            </a>
+        </div>
+        <div class="nav__menu" (click)="toggleMenu()">
+            <p>Menu</p>
+            &nbsp;&nbsp;
+            <img *ngIf="!openMenu$" src="assets/images/arrow-down.png" alt="">
+            <img *ngIf="openMenu$" style="transform: rotate(180deg);" src="assets/images/arrow-down.png" alt="">
+        </div>
+    </div>
+
+    <div [class]="openMenu$ ? 'nav__dropdown nav__dropdown--expand' : 'nav__dropdown'">
+        <a href="/store" class="top__item">
+            <b>Store</b>
+        </a>
+        <a href="/orders">
+            <b>Orders</b>
+        </a>
+        <a href="/cart">
+            <b>Cart</b>
+        </a>
+        <b (click)="logout()">Logout</b>
+    </div>
+</nav>

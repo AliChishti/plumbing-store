@@ -1,0 +1,106 @@
+<app-navigation></app-navigation>
+<app-create-product *ngIf="isProductModalOpen$"></app-create-product>
+<app-category *ngIf="isCategoryModalOpen$"></app-category>
+
+<div class="modal" *ngIf="isFeedbackModalOpen$">
+    <div class="modal__backdrop" (click)="closeFeedbackModal()"></div>
+    <div class="modal__content" [ngStyle]="{'top': (offset$ + 20) +'px'}">
+        <h1>Add Feedback</h1>
+        <form method="POST" [formGroup]="feedbackForm" novalidate>
+            <div class="form__field">
+                <textarea id="comment" cols="80" rows="10" placeholder="Add Comments..."
+                    formControlName="comment"></textarea>
+                <star-rating size="large" (ratingChange)="onRatingChange($event)"></star-rating>
+            </div>
+            <div>
+                <button class="form__button" [disabled]="!rating$" (click)="addFeedback()">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" *ngIf="isViewFeedbackModalOpen$">
+    <div class="modal__backdrop" (click)="closeViewFeedbackModal()"></div>
+    <div class="modal__content" [ngStyle]="{'top': (offset$ + 20) +'px'}">
+        <h1>Product Feedback</h1>
+        <div *ngFor="let feedback of productFeedbacks$ | async">
+            <div class="container container--row container--no-mg feedback__container">
+                <p>{{feedback.comment}}</p>
+                <star-rating [rating]="feedback.rating"></star-rating>
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="productRatings$ | async as productRatings">
+    <div class="content__header">
+        <h1>Products</h1>
+        <div class="content__header-interact">
+            <form method="POST" [formGroup]="productSearchForm" (ngSubmit)="searchProducts()">
+                <input type="text" placeholder="Search Product..." name="product" formControlName="product">
+                <div>
+                    <label for="category"><b>Filter Category</b></label>
+                    &nbsp;&nbsp;
+                    <select name="category" id="" formControlName="category" class="store__search-category">
+                        <option value="">Any Category</option>
+                        <option *ngFor="let category of categories$ | async" value="{{category.id}}">{{category.name}}
+                        </option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <button type="submit" class="btn btn--primary product__search-btn">Search</button>
+                </div>
+            </form>
+
+            <div class="container__header-btns">
+                <div *ngIf="isAdmin$">
+                    <button class="btn btn--accent btn--lg" (click)="openProductModal()">Add new Item</button>
+                </div>
+                <div *ngIf="isAdmin$">
+                    <button class="btn btn--accent btn--lg" (click)="openCategoryModal()">Add new Category</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container container--no-mg">
+        <div *ngFor="let product of products$ | async" class="product__container container container--row container--shadow container--no-mg container--pd">
+            <div class="product__image-container">
+                <div *ngIf="product.image; else defaultImage">
+                    <img class="product__image" src="http://localhost:8000/images/{{product.image}}" alt="">
+                </div>
+                <ng-template #defaultImage>
+                    <div class="product__image-container">
+                        <img class="product__image" src="assets/images/default.png" alt="">
+                    </div>
+                </ng-template>
+            </div>
+
+            <div class="product__container-detail">
+                <h2>{{product.name}}</h2>
+                <h2 class="product__price">${{product.price}}</h2>
+                <p>{{product.description}}</p>
+                <p class="product__category">{{product.category}}</p>
+            </div>
+
+            <ng-container *ngFor="let r of productRatings">
+                <star-rating size="large" *ngIf="product.id == r.id" [rating]="r.rating" [showHalfStars]="true"  class="product__rating"></star-rating>
+            </ng-container>
+
+            <div class="container__header-btns product__btns">
+                <button *ngIf="!isAdmin$ && !cartItems$.includes(product.id)" class="btn btn--accent" (click)="addToCart(product.id)">Add to Cart</button>
+                <button *ngIf="!isAdmin$ && cartItems$.includes(product.id)" class="btn btn--accept">Added to Cart</button>
+                <button class="btn btn--accent" (click)="openViewFeedbackModal(product.id)">View
+                    Feedback</button>
+                <button *ngIf="isAdmin$" class="btn btn--primary" (click)="delete(product.id)">Delete Item</button>
+                <div *ngIf="deliveredProducts$ | async as dProducts" style="width:100%">
+                    <div *ngIf="productIdsFeedbacked$ | async as fProducts">
+                        <button class="btn btn--accent"
+                            *ngIf="dProducts.includes(product.id) && !isAdmin$ && !fProducts.includes(product.id)"
+                            (click)="openFeedbackModal(product.id)" style="width:100%">Give Feedback</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

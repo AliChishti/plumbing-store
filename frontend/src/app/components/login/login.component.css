@@ -1,0 +1,96 @@
+.container-border {
+    font-family: Arial, Helvetica, sans-serif;
+    border: 8px solid #e26a6d;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    max-width: 60rem;
+    position: absolute;
+    top: 20%;
+    left: 15%;
+    right: 15%;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    height: 20rem;
+}
+
+h1 {
+    color: #d25e63;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+}
+
+.form__container {
+    flex: 1;
+    max-width: 50%;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+}
+
+input {
+    outline: none;
+    padding: 0.5rem 0.25rem;
+}
+
+input:focus, input:hover {
+    outline: none;
+    border: 2px solid #d25e63;
+}
+
+button{
+    background-color: #d25e63;
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    width: 10rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #e26a6d;
+}
+
+button:disabled, button[disabled] {
+    background-color: gray;
+}
+
+a {
+    color: #d25e63;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #ea8888;
+}
+
+@media screen and (max-width: 700px) {
+    .container-border {
+        flex-direction: column;
+    }
+    .form__container {
+        max-width: 90%;
+        width: 90%;
+    }
+    img {
+        height: 15rem;
+    }
+}

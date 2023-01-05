@@ -1,0 +1,35 @@
+<div class="modal">
+    <div class="message" [innerHTML]="msgStr" [hidden]="!msgStr"></div>
+    <div class="error" [innerHTML]="errorStr" [hidden]="!errorStr"></div>
+    <div class="modal__backdrop" (click)="closeProductModal()"></div>
+    <div class="modal__content">
+        <h1>Add Product</h1>
+        <form method="POST" [formGroup]="productForm" (ngSubmit)="addProduct($event)" enctype="multipart/form-data" novalidate>
+            <div class="form__field">
+                <label for="name">Product Name</label>
+                <input type="text" formControlName="name" id="name" placeholder="Product Name">
+            </div>
+            <div class="form__field">
+                <label for="description">Description</label>
+                <textarea formControlName="description" id="description"></textarea>
+            </div>
+            <div class="form__field">
+                <label for="price">Price</label>
+                <input type="number" formControlName="price" id="price" placeholder="Product Price">
+            </div>
+            <div class="form__field">
+                <label for="category">Category</label>
+                <select formControlName="category" id="category">
+                    <option *ngFor="let category of categories$ | async" value="{{category.id}}">{{category.name}}</option>
+                </select>
+            </div>
+            <div class="form__field">
+                <label for="file">Image</label>
+                <input type="file" formControlName ="image" id="file" (change)="handleFileInput($event)">
+            </div>
+            <div>
+                <button [disabled]="!productForm.valid">Add</button>
+            </div>
+        </form>
+    </div>
+</div>

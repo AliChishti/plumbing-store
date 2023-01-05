@@ -1,0 +1,36 @@
+.order__header {
+  width: 30%;
+}
+
+.order__container {
+  width: 80%;
+}
+
+.order__detail {
+  font-size: 1.2rem;
+}
+
+.order__detail p {
+  width: 33%;
+}
+
+.order__form {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .order__header {
+    width: auto;
+  }
+  .order__container {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    padding: 0.25rem 1rem;
+    width: 90%;
+  }
+  .order__detail {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

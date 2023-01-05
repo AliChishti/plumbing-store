@@ -1,0 +1,16 @@
+<div class="modal">
+    <div class="message" [innerHTML]="msgStr" [hidden]="!msgStr"></div>
+    <div class="error" [innerHTML]="errorStr" [hidden]="!errorStr"></div>
+    <div class="modal__backdrop" (click)="closeCategoryModal()"></div>
+    <div class="modal__content">
+        <h1>Add Category</h1>
+        <form  method="POST" [formGroup]="categoryForm" (ngSubmit)="addCategory()" novalidate>
+            <div class="form__field">
+                <input type="text" formControlName="name" id="category" placeholder="Ex. Equipment">
+            </div>
+            <div>
+                <button [disabled]="!categoryForm.valid">Add</button>
+            </div>
+        </form>
+    </div>
+</div>

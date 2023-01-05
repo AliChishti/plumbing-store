@@ -1,0 +1,23 @@
+<app-navigation></app-navigation>
+<div class="cart" *ngIf="cart$ | async as cart">
+    <div class="cart__header">
+        <h1>Cart</h1>
+        <a href="/checkout"><button class="cart__checkout-btn btn--lg" *ngIf="cart.items.length > 0"><b>Checkout Cart</b></button></a>
+    </div>
+    <div class="cart__item-container">
+        <div *ngFor="let item of cart.items" class="cart__item">
+            <h2 class="cart__item-name">{{item.name}}</h2>
+            <div class="cart__item-quantity">
+                <b>Quanity: </b>
+                <button class="cart__counter-btn" (click)="item.quantity = item.quantity - 1; decreaseQuantity(item.id)"><b>-</b></button>
+                <p>{{item.quantity}}</p>
+                <button class="cart__counter-btn" (click)="item.quantity = item.quantity + 1; increaseQuantity(item.id)"><b>+</b></button>
+            </div>
+            <div>
+                <button class="cart__remove-btn" (click)="removeItem(item.id)">Remove Item</button>
+            </div>
+            <h1 class="cart__item-price">${{item.price * item.quantity}}</h1>
+            <a href="/checkout?product={{item.id}}"><button class="cart__checkout-btn">Checkout</button></a>
+        </div>
+    </div>
+</div>
